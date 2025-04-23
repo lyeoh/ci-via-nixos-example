@@ -12,9 +12,9 @@ jobs:
       # 1. Install Nix (flakes already enabled)
       - name: Install Nix
         uses: cachix/install-nix-action@v17
-          with:
-            extra_nix_config: |
-              access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
         # with:
         #   extra_nix_config: |
         #     experimental-features = nix-command flakes
