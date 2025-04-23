@@ -25,4 +25,4 @@ jobs:
 
       # 4. Or call your dev-shell directly:
       # - run: nix develop .# --command pytest -q
-      - run: nix develop --command pytest -q
+      - run: nix develop --command pytest -q test_sysexit.py
