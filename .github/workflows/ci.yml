@@ -15,9 +15,9 @@ jobs:
         # with:
         #   extra_nix_config: |
         #     experimental-features = nix-command flakes
-      #                                      ↑ Flakes must be on
-      # 2. (Optional) share /nix/store across runs for speed
-      # - uses: DeterminateSystems/magic-nix-cache-action@v3
+
+      2. (Optional) share /nix/store across runs for speed
+      - uses: DeterminateSystems/magic-nix-cache-action@v3
 
       # 3. Build & run every flake check (pytest, formatting, etc.)
       # - name: Run flake checks
