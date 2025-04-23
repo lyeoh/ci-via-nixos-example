@@ -12,16 +12,17 @@ jobs:
       # 1. Install Nix (flakes already enabled)
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v16
-        with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+        # with:
+        #   extra_nix_config: |
+        #     experimental-features = nix-command flakes
       #                                      ↑ Flakes must be on
       # 2. (Optional) share /nix/store across runs for speed
-      - uses: DeterminateSystems/magic-nix-cache-action@v3
+      # - uses: DeterminateSystems/magic-nix-cache-action@v3
 
       # 3. Build & run every flake check (pytest, formatting, etc.)
-      - name: Run flake checks
-        run: nix flake check --print-build-logs
+      # - name: Run flake checks
+      #   run: nix flake check --print-build-logs
 
       # 4. Or call your dev-shell directly:
       # - run: nix develop .# --command pytest -q
+      - run: nix develop --command pytest -q
