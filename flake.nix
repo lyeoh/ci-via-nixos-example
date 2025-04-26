@@ -11,6 +11,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python311;           # pin the interpreter once
+        pyEnv = python.withPackages (ps: [ ps.pytest ps.black ] )
       in
       {
         ### Dev shell ────────────────
@@ -19,8 +20,6 @@
             python
             python.pkgs.pip
             python.pkgs.setuptools
-            python.pkgs.pytest
-            python.pkgs.black
           ];
         };
 
@@ -28,8 +27,15 @@
         # `nix flake check` will run this automatically.
         checks.pytests = pkgs.runCommand "pytest" { } ''
           export HOME=$TMPDIR        # pytest likes a writable HOME
-          ${python}/bin/python -m pytest -q test_sysexit.py
+          ${pyEnv}/bin/python -m pytest -q test_sysexit.py
           touch $out                 # produce a dummy artifact
         '';
       });
+
+    nixConfig = {
+        extra-substituters = [ "https://cache.garnix.io" ];
+        extra-trusted-public-keys = [
+            "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        ];
+    };
 }
