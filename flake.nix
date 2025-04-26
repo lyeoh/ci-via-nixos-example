@@ -27,7 +27,7 @@
         # `nix flake check` will run this automatically.
         checks.pytests = pkgs.runCommand "pytest" { } ''
           export HOME=$TMPDIR        # pytest likes a writable HOME
-          ${pyEnv}/bin/python -m pytest -q test_sysexit.py
+          ${pyEnv}/bin/python -m pytest -q ${self}
           touch $out                 # produce a dummy artifact
         '';
       });
