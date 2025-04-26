@@ -19,13 +19,11 @@ jobs:
         #   extra_nix_config: |
         #     experimental-features = nix-command flakes
 
-      # 2. (Optional) share /nix/store across runs for speed
-      - uses: DeterminateSystems/magic-nix-cache-action@v9
 
       # 3. Build & run every flake check (pytest, formatting, etc.)
-      # - name: Run flake checks
-      #   run: nix flake check --print-build-logs
+      - name: Run flake checks
+        run: nix flake check --print-build-logs
 
       # 4. Or call your dev-shell directly:
       # - run: nix develop .# --command pytest -q
-      - run: nix develop --command pytest -q test_sysexit.py
+      # - run: nix develop --command pytest -q test_sysexit.py
