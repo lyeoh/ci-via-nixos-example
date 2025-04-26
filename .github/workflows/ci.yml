@@ -1,4 +1,4 @@
-name: CI
+name: uv pytest
 
 on: [push, pull_request]
 
@@ -6,24 +6,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # 0. Check out the repo
       - uses: actions/checkout@v4
 
-      # 1. Install Nix (flakes already enabled)
-      - name: Install Nix
-        uses: cachix/install-nix-action@v17
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-        # with:
-        #   extra_nix_config: |
-        #     experimental-features = nix-command flakes
+          version: "0.6.17"
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
 
-      # 3. Build & run every flake check (pytest, formatting, etc.)
-      - name: Run flake checks
-        run: nix flake check --print-build-logs
+      - name: Install the project
+        run: uv sync --locked --all-extras
 
-      # 4. Or call your dev-shell directly:
-      # - run: nix develop .# --command pytest -q
-      # - run: nix develop --command pytest -q test_sysexit.py
+      - name: Lint all files in base dir
+      - run: uv run ruff check
+
+      - name: Run test
+        run: uv run pytest test_sysexit.py

@@ -1,0 +1,12 @@
+[project]
+name = "pytest-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.7",
+]
+
+[tool.ruff]
