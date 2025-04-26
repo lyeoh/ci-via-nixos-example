@@ -11,7 +11,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         python = pkgs.python311;           # pin the interpreter once
-        pyEnv = python.withPackages (ps: [ ps.pytest ps.black ] )
+        pyEnv = python.withPackages (ps: [ ps.pytest ps.black ] );
       in
       {
         ### Dev shell ────────────────
